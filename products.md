@@ -2,10 +2,10 @@
 
 ## Dedicated Secret Stores
 
-### Vault
+### Vault ###
 - URL: https://www.vaultproject.io/
 - Category:
-- Demoed by:
+- Demoed by: Daniel (in progress)
 
 ### Keywhiz
 - URL: https://square.github.io/keywhiz/
