@@ -1,0 +1,17 @@
+---
+driver:
+  name: vagrant
+  customize:
+      memory: 2048
+      cpus: 2
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: centos-7.0
+
+suites:
+  - name: default
+    run_list:
+      - recipe[valult_demo::default]
+    attributes:

@@ -11,8 +11,8 @@ The key feature to Vault is leases. It is assumed for Vault deployments that a s
 - Cloud readiness: good
 - Data center readiness: good
 - Automation / pipeline readiness: fair
-- Product maturity:
-- Developer friendliness: 
+- Product maturity: fair
+- Developer friendliness: fair
 
 ## Features
 - Cluster / multi-node support: yes
