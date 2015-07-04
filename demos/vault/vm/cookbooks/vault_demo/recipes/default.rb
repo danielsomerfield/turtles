@@ -14,3 +14,5 @@ file '/usr/bin/vault' do
   owner 'root'
   group 'root'
 end
+
+include_recipe "mongodb::default"
