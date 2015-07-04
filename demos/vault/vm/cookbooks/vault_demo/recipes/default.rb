@@ -28,5 +28,5 @@ cookbook_file '/opt/service/vault-demo-0.1.0.jar' do
   source 'vault-demo-0.1.0.jar'
 end
 
-execute 'java -jar /opt/service/vault-demo-0.1.0.jar &' do
+execute 'java -jar /opt/service/vault-demo-0.1.0.jar > /opt/service/vault-demo.log &' do
 end

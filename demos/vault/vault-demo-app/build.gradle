@@ -1,6 +1,7 @@
 import java.nio.file.CopyOption
 import java.nio.file.FileSystems
 import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 
 buildscript {
     repositories {
@@ -34,6 +35,9 @@ dependencies {
     testCompile 'org.apache.httpcomponents:httpclient:4.5'
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("junit:junit")
+    testCompile 'org.json:json:20141113'
+    testCompile 'commons-io:commons-io:2.4'
+
 }
 
 
@@ -59,7 +63,8 @@ build {
         String fileName = "vault-demo-0.1.0.jar"
         Files.copy(
             FileSystems.getDefault().getPath("build/libs/$fileName"),
-            FileSystems.getDefault().getPath("../vm/cookbooks/vault_demo/files/default/$fileName"))
+            FileSystems.getDefault().getPath("../vm/cookbooks/vault_demo/files/default/$fileName"),
+            StandardCopyOption.REPLACE_EXISTING)
     }
 }
 
