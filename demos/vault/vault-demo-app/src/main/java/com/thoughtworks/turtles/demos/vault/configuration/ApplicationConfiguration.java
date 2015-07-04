@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfiguration {
 
     @Bean
-    public MongoCollection<Document> accountCollection(MongoDatabase mongoDatabase) {
-        return mongoDatabase.getCollection("account");
+    public MongoCollection<Document> userCollection(MongoDatabase mongoDatabase) {
+        return mongoDatabase.getCollection("user");
     }
 
     @Bean

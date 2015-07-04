@@ -4,6 +4,8 @@ import com.thoughtworks.turtles.demos.vault.domain.Account;
 import com.thoughtworks.turtles.demos.vault.services.AccountService;
 import com.thoughtworks.turtles.demos.vault.wireTypes.AccountWireType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +23,10 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/user/{userid}/account", produces = "application/json", method = GET)
-    public AccountWireType getAccountStatus(@PathVariable("userid") final String userId) {
-        return toWireType(accountService.getAccountForUserId(userId));
+    public ResponseEntity<?> getAccountStatus(@PathVariable("userid") final String userId) {
+        return accountService.getAccountForUserId(userId)
+                .map(account -> ResponseEntity.<Object>ok(toWireType(account)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(""));
     }
 
     private AccountWireType toWireType(final Account account) {

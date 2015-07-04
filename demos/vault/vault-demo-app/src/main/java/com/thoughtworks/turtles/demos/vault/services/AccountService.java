@@ -5,6 +5,8 @@ import com.thoughtworks.turtles.demos.vault.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AccountService {
 
@@ -15,7 +17,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public Account getAccountForUserId(final String userId) {
+    public Optional<Account> getAccountForUserId(final String userId) {
         return accountRepository.findAccountByUserId(userId);
     }
 }
