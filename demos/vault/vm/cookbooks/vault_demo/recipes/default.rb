@@ -1,3 +1,6 @@
+include_recipe "mongodb::default"
+include_recipe "java::default"
+
 remote_file '/tmp/vault_0.1.2_linux_amd64.zip' do
   source 'https://dl.bintray.com/mitchellh/vault/vault_0.1.2_linux_amd64.zip'
   action :create
@@ -15,4 +18,15 @@ file '/usr/bin/vault' do
   group 'root'
 end
 
-include_recipe "mongodb::default"
+execute 'pkill java || true' do
+end
+
+directory '/opt/service' do
+end
+
+cookbook_file '/opt/service/vault-demo-0.1.0.jar' do
+  source 'vault-demo-0.1.0.jar'
+end
+
+execute 'java -jar /opt/service/vault-demo-0.1.0.jar &' do
+end
