@@ -6,6 +6,7 @@ driver:
     cpus: 2
   network:
     - ["forwarded_port", {guest: 8080, host: 18080}]
+    - ["forwarded_port", {guest: 27017, host: 37017}]
 
 provisioner:
   name: chef_solo
@@ -16,5 +17,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[valult_demo::default]
+      - recipe[vault_demo::default]
     attributes:
