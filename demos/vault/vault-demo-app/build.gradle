@@ -31,8 +31,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile "org.projectlombok:lombok:1.16.4"
     compile 'org.mongodb:mongo-java-driver:3.0.2'
-
-    testCompile 'org.apache.httpcomponents:httpclient:4.5'
+    compile 'org.apache.httpcomponents:httpclient:4.5'
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("junit:junit")
     testCompile 'org.json:json:20141113'

@@ -6,7 +6,7 @@ Vault is a fundamentally a tool for controlling access to resources via policies
 The key feature to Vault is leases. It is assumed for Vault deployments that a secret is only valid for so long. Obviously this doesn't handle a case where you want to send out a secret and "recall it" (think outlook "recall message" and how well that works) but rather it's for things like keys and credentials that have a natural lifespan, after which they can be changed. If credentials are always fetched from your vault server based on lease time, you can be guaranteed that those credentials are always the latest and greatest and the app (or user) never has to worry about what those credentials actually are. This is very similar to how AWS handles granting access to AWS resources via AIM roles. Admins grant roles, and AWS handles the mediation of credentials and the like.
 
 ## Ratings (poor / fair / good)
-- Ease of setup:
+- Ease of setup: fair
 - Easy of use:
 - Cloud readiness: good
 - Data center readiness: good

@@ -1,6 +1,5 @@
 package com.thoughtworks.turtles.demos.vault.configuration;
 
-import com.mongodb.AuthenticationMechanism;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -10,7 +9,7 @@ import org.bson.Document;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -27,9 +26,9 @@ public class ApplicationConfiguration {
         return mongoClient.getDatabase(MONGO_DB_NAME);
     }
 
-    @Bean
+    @Bean()
     public MongoClient mongoClient(MongoCredential credential) {
-        return new MongoClient(new ServerAddress("localhost"), asList(credential));
+        return new MongoClient(new ServerAddress("localhost"), singletonList(credential));
     }
 
     @Bean
