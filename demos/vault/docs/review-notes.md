@@ -5,14 +5,17 @@ Vault is a fundamentally a tool for controlling access to resources via policies
 
 The key feature to Vault is leases. It is assumed for Vault deployments that a secret is only valid for so long. Obviously this doesn't handle a case where you want to send out a secret and "recall it" (think outlook "recall message" and how well that works) but rather it's for things like keys and credentials that have a natural lifespan, after which they can be changed. If credentials are always fetched from your vault server based on lease time, you can be guaranteed that those credentials are always the latest and greatest and the app (or user) never has to worry about what those credentials actually are. This is very similar to how AWS handles granting access to AWS resources via AIM roles. Admins grant roles, and AWS handles the mediation of credentials and the like.
 
+The interactions with HTTP API are pretty involved and have a pretty fair number of interactions. The logic you would need to build into your app to utilize the secrets would require a fair amount of code and the first thing you are going to want to do is develop a library in your native langauge to handle that interaction as transparently as possible.
+
 ## Ratings (poor / fair / good)
 - Ease of setup: fair
-- Easy of use:
+- Easy of use: fair
 - Cloud readiness: good
 - Data center readiness: good
 - Automation / pipeline readiness: fair
 - Product maturity: fair
 - Developer friendliness: fair
+- Stability: ??? (crashed a couple of times on unseal, but only using memory-based backend. Haven't found reliable repo)
 
 ## Features
 - Cluster / multi-node support: yes
@@ -50,3 +53,11 @@ These two bits of information are mapped, so that when the request comes in with
 - From the Vault website:
   - "Vault doesn't replace an HSM" -- better for dynamic secrets and less operationally cumbersome, but HSM would be an appropriate backend for Vault.
   - Vault and KMS differ in the scope of problems they are trying to solve. The KMS service is focused on securely storing encryption keys and supporting cryptographic operations (encrypt and decrypt) using those keys. It supports access controls and auditing as well.
+- Docs are pretty primitive and often wrong
+- Unlocking:  
+  {"keys":["8c8cb2d41d7d145fa8d2b72d7d9a58db686bc1b42fcecb60b966f2a63e37d2a6"],"root_token":"ce5676c4-529a-a25c-4f1c-c3e2eca388ff"}
+
+  export VAULT_TOKEN
+
+- Login via app_id:
+  curl -f -v -XPOST --data '{"app_id":"vault_demo", "user_id":"vault_demo"}' "http://localhost:8200/v1/auth/app-id/login"

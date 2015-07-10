@@ -5,6 +5,7 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.thoughtworks.turtles.demos.vault.services.SecretService;
 import org.bson.Document;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +33,11 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public MongoCredential credential() {
+    public MongoCredential credential(SecretService secretService) {
+//        return secretService.getSecret("secret/vault-demo/password")
+//                .map(secret -> MongoCredential.createCredential("vault-demo", MONGO_DB_NAME, secret.get("value").toString().toCharArray()))
+//                .orElseGet(()-> MongoCredential.createCredential("vault-demo", MONGO_DB_NAME, new char[0]));
         return MongoCredential.createCredential("vault-demo", MONGO_DB_NAME, "vault-demo".toCharArray());
     }
+
 }
