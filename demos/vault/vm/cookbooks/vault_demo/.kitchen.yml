@@ -5,8 +5,10 @@ driver:
     memory: 2048
     cpus: 2
   network:
-    - ["forwarded_port", {guest: 8080, host: 18080}]
-    - ["forwarded_port", {guest: 27017, host: 37017}]
+    - ["forwarded_port", {guest: 8080,  host: 18080}]   #application
+    - ["forwarded_port", {guest: 8200,  host: 18200}]   #vault
+    - ["forwarded_port", {guest: 27017, host: 37017}]   #mongo
+    - ["forwarded_port", {guest: 5005, host: 5005}]   #debug
 
 provisioner:
   name: chef_solo

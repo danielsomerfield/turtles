@@ -1,2 +1,2 @@
 vault:
-  appId: ${VAULT_APP_ID:vault-demo-nonprod}
+  appId: ${VAULT_APP_ID:vault_demo}

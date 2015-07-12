@@ -15,6 +15,7 @@ The interactions with HTTP API are pretty involved and have a pretty fair number
 - Automation / pipeline readiness: fair
 - Product maturity: fair
 - Developer friendliness: fair
+- Documentation: poor
 - Stability: ??? (crashed a couple of times on unseal, but only using memory-based backend. Haven't found reliable repo)
 
 ## Features

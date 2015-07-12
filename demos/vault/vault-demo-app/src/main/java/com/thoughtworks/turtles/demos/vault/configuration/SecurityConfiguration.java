@@ -18,7 +18,7 @@ public class SecurityConfiguration {
     }
 
     public String getUserId() {
-        return getMacAddress();
+        return "vault_demo"; //TODO: this should be replaced with the MAC
     }
 
     @SneakyThrows

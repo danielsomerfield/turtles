@@ -66,9 +66,6 @@ end
 execute '/home/vagrant/init-vault.sh' do
 end
 
-# Key 1: 3147b3e4f458811c093c712ec13ec29fdc9ae3bccc55eb3a4444bf85c8a8aeb0
-# Initial Root Token: ed19f24a-c200-a4b6-a728-4788f8044fd4
-
 # Install the service
 execute 'pkill java || true' do
 end
@@ -76,9 +73,9 @@ end
 directory '/opt/service' do
 end
 
-cookbook_file '/opt/service/vault-demo-0.1.0.jar -Dvault.appId' do
+cookbook_file '/opt/service/vault-demo-0.1.0.jar' do
   source 'vault-demo-0.1.0.jar'
 end
 
-execute 'java -jar /opt/service/vault-demo-0.1.0.jar > /opt/service/vault-demo.log &' do
+execute 'java -jar /opt/service/vault-demo-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/vault-demo.log &' do
 end

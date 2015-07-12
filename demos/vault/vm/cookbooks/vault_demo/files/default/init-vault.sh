@@ -10,3 +10,4 @@ fi
 
 vault write --address http://localhost:8200 auth/app-id/map/app-id/vault_demo value=root display_name=vault_demo || exit 1;
 vault write --address http://localhost:8200 auth/app-id/map/user-id/vault_demo value=vault_demo || exit 1;
+vault write --address http://localhost:8200 secret/vault-demo/mongo password=vault-demo || exit 1;
