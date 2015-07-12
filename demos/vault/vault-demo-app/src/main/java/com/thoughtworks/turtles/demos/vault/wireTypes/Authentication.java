@@ -12,7 +12,6 @@ public class Authentication {
     private final int             returnCode;
 
     public boolean isSuccessful() {
-        log.info("Authentication.returnCode = " + returnCode);
         return returnCode == 200;
     }
 }

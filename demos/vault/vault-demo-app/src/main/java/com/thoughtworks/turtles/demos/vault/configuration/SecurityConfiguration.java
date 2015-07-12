@@ -22,7 +22,7 @@ public class SecurityConfiguration {
     }
 
     @SneakyThrows
-    private static String getMacAddress() {
+    private static String getMacAddress() { //TODO: this should really be the source of the user id
         byte [] mac = NetworkInterface.getByInetAddress(InetAddress.getLocalHost()).getHardwareAddress();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < mac.length; i++) {

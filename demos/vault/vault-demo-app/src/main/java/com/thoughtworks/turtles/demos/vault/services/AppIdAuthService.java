@@ -26,15 +26,6 @@ public class AppIdAuthService {
 
     private final SecurityConfiguration securityConfiguration;
 
-//    public static void main(String[] args) {
-//        new AppIdAuthService(new SecurityConfiguration(){
-//            @Override
-//            public String getAppId() {
-//                return "vault_demo";
-//            }
-//        }).authenticate();
-//    }
-
     @Autowired
     public AppIdAuthService(final SecurityConfiguration securityConfiguration) {
         this.securityConfiguration = securityConfiguration;
@@ -47,9 +38,7 @@ public class AppIdAuthService {
     @SneakyThrows
     public Optional<Authentication> authenticate() {
         final HttpPost request = new HttpPost(format("%s/v1/auth/app-id/login", securityConfiguration.getVaultEndpoint()));
-        String loginJSON = new ObjectMapper().writeValueAsString(new AppIdLoginWireType(securityConfiguration.getAppId(), securityConfiguration.getUserId()));
-        log.info("Logging in with " + loginJSON);//TODO: remove this!!!!!
-        request.setEntity(new StringEntity(loginJSON));
+        request.setEntity(new StringEntity(new ObjectMapper().writeValueAsString(new AppIdLoginWireType(securityConfiguration.getAppId(), securityConfiguration.getUserId()))));
         request.setHeader("Content-type", "application/json");
         return Http.doRequest(request)
                 .flatMap(this::toAuth);

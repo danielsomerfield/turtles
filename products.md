@@ -5,7 +5,7 @@
 ### Vault ###
 - URL: https://www.vaultproject.io/
 - Category:
-- Demoed by: Daniel (in progress)
+- Demoed by: Daniel (complete)
 
 ### Keywhiz
 - URL: https://square.github.io/keywhiz/

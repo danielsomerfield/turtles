@@ -1,12 +1,10 @@
 package com.thoughtworks.turtles.demos.vault.services;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.turtles.demos.vault.configuration.SecurityConfiguration;
 import com.thoughtworks.turtles.demos.vault.util.Http;
 import com.thoughtworks.turtles.demos.vault.wireTypes.Authentication;
+import com.thoughtworks.turtles.demos.vault.wireTypes.SecretWireType;
 import com.thoughtworks.turtles.demos.vault.wireTypes.Token;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -50,11 +47,7 @@ public class SecretService {
         }
 
         Optional<Secret> maybeCurrentSecret = either(cachedSecret.filter(Secret::isCurrent)).or(renewSecret(cachedSecret));
-        log.info("maybeCurrentSecret " + maybeCurrentSecret);
-
         final Optional<Secret> secret = either(maybeCurrentSecret).or((getSecretFromStore(path)));
-        log.info("Got secret " + secret);
-
 
         secret.ifPresent(s -> {
             synchronized (secrets) {
@@ -65,31 +58,20 @@ public class SecretService {
     }
 
     private Optional<Secret> renewSecret(final Optional<Secret> knownSecret) {
-        log.info("Secret is present and current? " + knownSecret.map(Secret::isCurrent));
         return knownSecret.filter(Secret::isCurrent); //TODO: not supporting renewal right now
     }
 
     private Optional<Secret> getSecretFromStore(final String path) {
-        return getToken().flatMap(t -> getSecretWithToken(t.getValue(), path));
+        return getCachedToken().flatMap(t -> getSecretWithToken(t.getValue(), path));
     }
 
-    private Optional<Token> getToken() {
+    private Optional<Token> getCachedToken() {
         return maybeToken.updateAndGet(maybeToken -> maybeToken.isPresent() ? maybeToken : createToken());
     }
 
-    /*
-    {
-        "lease_id":"secret/foo/5958b11a-d996-ec87-725e-743beb2e1416",
-        "renewable":false,
-        "lease_duration":2592000,
-        "data":{"value":"bar"},
-        "auth":null}
-     */
     private Optional<Secret> getSecretWithToken(final String token, final String path) {
         final HttpGet get = new HttpGet(format("%s/v1/secret/%s", securityConfiguration.getVaultEndpoint(), path));
         get.setHeader("X-Vault-Token", token);
-        log.info("Doing request " + get);
-        log.info(" with header " + get.getFirstHeader("X-Vault-Token"));
         return Http.doRequest(get).flatMap(this::parseSecret).map(w ->
                 new Secret(
                         w.getLeaseId(),
@@ -104,7 +86,6 @@ public class SecretService {
     private Optional<SecretWireType> parseSecret(final CloseableHttpResponse resp) {
         try {
             final String content = IOUtils.toString(resp.getEntity().getContent());
-            log.info("Parsing secret " + content);
             return Optional.of(new ObjectMapper().readValue(content, SecretWireType.class));
         } catch (IOException e) {
             log.warn("Failed to parse secret", e);
@@ -130,26 +111,4 @@ public class SecretService {
         }
     }
 
-    @Value
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class SecretWireType {
-        private final String              leaseId;
-        private final boolean             renewable;
-        private final long                leaseDuration;
-        private final Map<String, String> data;
-        //Add error list
-
-        @JsonCreator
-        public SecretWireType(
-                @JsonProperty("lease_id") final String leaseId,
-                @JsonProperty("renewable") final boolean renewable,
-                @JsonProperty("lease_duration") final long leaseDuration,
-                @JsonProperty("data") final Map<String, String> data
-        ) {
-            this.leaseId = leaseId;
-            this.renewable = renewable;
-            this.leaseDuration = leaseDuration;
-            this.data = data;
-        }
-    }
 }

@@ -3,9 +3,26 @@
 ## Summary
 Vault is a fundamentally a tool for controlling access to resources via policies. It does not (cannot) solve the bootstrapping problem insofar as it still requires authentication (of course). But it does provide a means of decoupling control of access to resource (authz) from the identity of the requestor (authc) via a clean CLI and API for a number of use cases. I think the real power of this tool will come when it's more mature, has a lot more backends and a stable API so you can build your own. Although the methods of access are quite straightforward, the product does not provide any abstraction (like a virtual filesystem) so applications could access resources in a very familiar way--whether this is a strength or weakness.
 
-The key feature to Vault is leases. It is assumed for Vault deployments that a secret is only valid for so long. Obviously this doesn't handle a case where you want to send out a secret and "recall it" (think outlook "recall message" and how well that works) but rather it's for things like keys and credentials that have a natural lifespan, after which they can be changed. If credentials are always fetched from your vault server based on lease time, you can be guaranteed that those credentials are always the latest and greatest and the app (or user) never has to worry about what those credentials actually are. This is very similar to how AWS handles granting access to AWS resources via AIM roles. Admins grant roles, and AWS handles the mediation of credentials and the like.
+The key feature to Vault is leases. It is assumed for Vault deployments that a secret is only valid for so long. Obviously this doesn't handle a case where you want to send out a secret and "recall it" (think outlook "recall message" and how well that works) but rather it's for things like keys and credentials that have a natural lifespan, after which they can be changed. If credentials are always fetched from your vault server based on lease time, you can be guaranteed (unless there is an explicit expiration) that those credentials are always the latest and greatest and the app (or user) never has to worry about what those credentials actually are. This is very similar to how AWS handles granting access to AWS resources via AIM roles. Admins grant roles, and AWS handles the mediation of credentials and the like.
 
-The interactions with HTTP API are pretty involved and have a pretty fair number of interactions. The logic you would need to build into your app to utilize the secrets would require a fair amount of code and the first thing you are going to want to do is develop a library in your native langauge to handle that interaction as transparently as possible.
+A note on leases: the lease model seems sound except for the renewal concept. I'm not quite the renewal concept is worth the complexity. The only value of renewal of a lease over re-requesting a resource, is to save a transmit of the secret over the wire. To be clear: it doesn't save the trip, you still need that for the lease renewal, but it doesn't have to have the secret. This could add a small bit of security, but at the cost of having to keep track of leases at the clients. It also doesn't save the client from having to check for failures: explicit revocation means that the secret could always be invalid.
+
+The interactions with HTTP API are pretty involved and have a pretty fair number of interactions. The logic you would need to build into your app to utilize the secrets would require a fair amount of code and the first thing you are going to want to do is develop a library in your native language to handle that interaction as transparently as possible.
+
+## Strengths
+- REST API is pretty easy to use
+- Supports a number of secret and authentication backends
+- Good built-in help
+- Secret lease model encourages a strong key rotation strategy
+- Compelling model for ephemeral credentials that can integrate with AWS roles
+- Several very interesting useful, including AWS, mysql, PostgreSQL and Consul
+
+## Weaknesses
+- API docs are incomplete and at times, contradictory
+- Inconsistent REST return code semantics (e.g. returning 400s for things that really should be 503s)
+- Relative product immaturity means that API is not yet solidified, so building your own backends would be a tricky endeavor and you will probably end up re-writing
+- Community is limited
+
 
 ## Ratings (poor / fair / good)
 - Ease of setup: fair

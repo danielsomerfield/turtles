@@ -39,7 +39,7 @@ public class ApplicationConfiguration {
         return secretService.getSecret("vault-demo/mongo")
                 .map(secret -> MongoCredential.createCredential("vault-demo", MONGO_DB_NAME, secret.get("password").toCharArray()))
                 .orElseGet(() -> {
-                    log.warn("!!!!Using default credentials!!!!");
+                    log.warn("No secret fetched. Using default credentials");
                     return MongoCredential.createCredential("vault-demo", MONGO_DB_NAME, new char[0]);
                 });
 //        return MongoCredential.createCredential("vault-demo", MONGO_DB_NAME, "vault-demo".toCharArray());

@@ -26,5 +26,4 @@ public class AccountService {
         return this.userRepository.insertUser(account);
     }
 
-    public void clearUsers(){}
 }
