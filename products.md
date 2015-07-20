@@ -10,6 +10,7 @@
 
 ### Keywhiz
 - URL: https://square.github.io/keywhiz/
+- Demoed by:
 
 ### Category: Secret Storage ###
 ### Git Crypt
@@ -22,6 +23,13 @@ https://github.com/elasticdog/transcrypt
 https://github.com/TomPoulton/hiera-eyaml
 - Cam Jackson has some experience with it
 
+### Blackbox
+- Demoed by: Daniel (in progress)
+- https://github.com/StackExchange/blackbox
+
+### Trousseau
+https://github.com/oleiade/trousseau
+
 ## Category: Products with secret storage features built-in ##
 
 ### Consul
@@ -33,3 +41,8 @@ https://github.com/CiscoCloud/microservices-infrastructure
 ## More password manager-like (not sure we really want to do these ones ) ##
 ### Rattic
 https://github.com/tildaslash/RatticWeb/wiki/API-Usage (this seems more "human based")
+
+## Category: Commercial Enterprise-Ware
+### CyberArk
+- cyberark.com
+Probably going to skip this one. Have plenty to look at with OSS.
