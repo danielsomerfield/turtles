@@ -1,7 +1,7 @@
 # include_recipe 'build-essential::default'
-#include_recipe "mongodb::default"
-#include_recipe "java::default"
-#include_recipe 'yum-epel'
+include_recipe "mongodb::default"
+include_recipe "java::default"
+include_recipe 'yum-epel'
 
 #package deps
 package 'git' do
@@ -26,31 +26,36 @@ git 'clone blackbox' do
 end
 
 execute 'build rpm' do
-  creates '/home/vagrant/rpmbuild-stack_blackbox/stack_blackbox-1.0-1.x86_64.rpm'
+  creates '/root/rpmbuild-stack_blackbox/stack_blackbox-1.0-1.noarch.rpm'
   command 'make packages-rpm'
   cwd '/home/vagrant/blackbox_src'
 end
 
 package 'stack_blackbox' do
-  source '/home/vagrant/rpmbuild-stack_blackbox/stack_blackbox-1.0-1.x86_64.rpm'
+  source '/root/rpmbuild-stack_blackbox/stack_blackbox-1.0-1.noarch.rpm'
 end
 
-# execute 'mongo blackbox-demo --port 27017 /tmp/init-mongo.js' do
-# end
+cookbook_file '/tmp/init-mongo.js' do
+  source 'init-mongo.js'
+end
+
+execute 'mongo blackbox-demo --port 27017 /tmp/init-mongo.js' do
+end
+
+#TODO: lock down mongo
 
 # Install blackbox
 
-
 # Install the service
-# execute 'pkill java || true' do
-# end
-#
-# directory '/opt/service' do
-# end
-#
-# cookbook_file '/opt/service/blackbox-demo-0.1.0.jar' do
-#   source 'blackbox-demo-0.1.0.jar'
-# end
-#
-# execute 'java -jar /opt/service/blackbox-demo-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/blackbox-demo.log &' do
-# end
+execute 'pkill java || true' do
+end
+
+directory '/opt/service' do
+end
+
+cookbook_file '/opt/service/blackbox-demo-0.1.0.jar' do
+  source 'blackbox-demo-0.1.0.jar'
+end
+
+execute 'java -jar /opt/service/blackbox-demo-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/blackbox-demo.log &' do
+end

@@ -1,0 +1,72 @@
+import java.nio.file.CopyOption
+import java.nio.file.FileSystems
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
+
+group 'com.thoughtworks.turtles'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile "org.projectlombok:lombok:1.16.4"
+    compile 'org.mongodb:mongo-java-driver:3.0.2'
+    compile 'org.apache.httpcomponents:httpclient:4.5'
+    compile 'commons-io:commons-io:2.4'
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("junit:junit")
+    testCompile 'org.json:json:20141113'
+
+}
+
+
+jar {
+    baseName = 'blackbox-demo'
+    version =  '0.1.0'
+}
+
+test {
+    filter {
+        exclude "**/*IntegrationTest*"
+    }
+}
+
+task integrationTest(type: Test, dependsOn: 'test') {
+    filter {
+        includeTestsMatching "*IntegrationTest"
+    }
+}
+
+build {
+    doLast {
+        String fileName = "blackbox-demo-0.1.0.jar"
+        Files.copy(
+            FileSystems.getDefault().getPath("build/libs/$fileName"),
+            FileSystems.getDefault().getPath("../vm/cookbooks/blackbox_demo/files/default/$fileName"),
+            StandardCopyOption.REPLACE_EXISTING)
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

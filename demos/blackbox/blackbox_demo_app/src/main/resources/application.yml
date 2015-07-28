@@ -1,0 +1,2 @@
+blackbox:
+  appId: ${BLACKBOX_APP_ID:blackbox_demo}

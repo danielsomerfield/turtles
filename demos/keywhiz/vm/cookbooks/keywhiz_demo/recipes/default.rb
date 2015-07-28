@@ -18,8 +18,6 @@ end
 execute 'mongo vault-demo --port 27017 /tmp/init-mongo.js' do
 end
 
-#TODO: lock down mongo
-
 # Install Vault
 remote_file '/tmp/vault_0.1.2_linux_amd64.zip' do
   source 'https://dl.bintray.com/mitchellh/vault/vault_0.1.2_linux_amd64.zip'
