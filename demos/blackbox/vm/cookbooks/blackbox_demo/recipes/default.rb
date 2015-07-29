@@ -44,8 +44,6 @@ end
 
 #TODO: lock down mongo
 
-# Install blackbox
-
 # Install the service
 execute 'pkill java || true' do
 end
@@ -56,6 +54,30 @@ end
 cookbook_file '/opt/service/blackbox-demo-0.1.0.jar' do
   source 'blackbox-demo-0.1.0.jar'
 end
+
+# Note: that you would never really want to provision this way. It should be an out-of-band process.
+# TODO: keys aren't extracting correctly
+# execute 'Extract keys' do
+#   creates '/home/vagrant/.gnupg'
+#   cwd '/home/vagrant'
+#   command 'tar xvfz /tmp/kitchen/cookbooks/blackbox_demo/files/default/demo-keys.tar.gz'
+# end
+
+# git '/opt/service/conf' do
+#   repository 'https://github.com/danielsomerfield/blackbox_demo_files.git'
+#   revision 'master'
+#   action :sync
+# end
+
+# execute 'Decrypt' do
+#   user 'vagrant'
+#   cwd '/opt/service/conf'
+#   command '/usr/blackbox/bin/blackbox_postdeploy'
+# end
+
+#TODO: fix up permissions of extracted files
+#TODO: decrypt the properties
+#TODO: add path to properties file to demo app startup path
 
 execute 'java -jar /opt/service/blackbox-demo-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/blackbox-demo.log &' do
 end

@@ -13,11 +13,11 @@ Blackbox is for storing secrets in Git, Mercurial, Subversion or Perforce. It wa
 - Puppet specific: not easily chefable
 
 ## Ratings (poor / fair / good)
-- Ease of setup: fair
-- Easy of use:
-- Cloud readiness:
-- Data center readiness:
-- Automation / pipeline readiness:
+- Ease of setup: poor
+- Easy of use: fair
+- Cloud readiness: fair
+- Data center readiness: fair
+- Automation / pipeline readiness: poor
 - Product maturity:
 - Developer friendliness:
 - Documentation:
@@ -30,6 +30,7 @@ Blackbox is for storing secrets in Git, Mercurial, Subversion or Perforce. It wa
 Subkeys.
 
 ## Notes
+- Seem really meant to provide encryption to puppet master. They are decrypted at that point
 - Does not encourage or help manage any particular key rotation strategy. It makes that easier by controlling access on a per-user basis based on public / private keys.
 - Machine deployments: "... it permits the creation of sub-keys that have no passphrase. For automated processes, create a subkey that is only stored on the machine that needs to decrypt the files..."" - https://github.com/StackExchange/blackbox#set-up-automated-users-or-role-accounts
 
