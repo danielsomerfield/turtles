@@ -1,2 +1,2 @@
 blackbox:
-  appId: ${BLACKBOX_APP_ID:blackbox_demo}
+  credentialsFilePath: /opt/service/conf/credentials.properties
