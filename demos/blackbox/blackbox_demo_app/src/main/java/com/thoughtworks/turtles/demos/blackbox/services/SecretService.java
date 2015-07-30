@@ -21,7 +21,7 @@ public class SecretService {
         try {
             secrets.load(new FileInputStream(securityConfiguration.getCredentialsFilePath()));
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load secret properties.");
+            throw new RuntimeException("Failed to load secret properties.", e);
         }
         //TODO: delete secret properties
     }
