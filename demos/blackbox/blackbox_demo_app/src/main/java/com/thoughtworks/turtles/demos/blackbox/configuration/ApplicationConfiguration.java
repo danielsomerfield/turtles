@@ -36,7 +36,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public MongoCredential credential(SecretService secretService) {
-        return secretService.getSecret("blackbox-demo/mongo")
+        return secretService.getSecret("blackbox-demo.password")
                 .map(secret -> MongoCredential.createCredential("blackbox-demo", MONGO_DB_NAME, secret.toCharArray()))
                 .orElseGet(() -> {
                     log.warn("No secret fetched. Using default credentials");
