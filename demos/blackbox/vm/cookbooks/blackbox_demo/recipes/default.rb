@@ -55,29 +55,32 @@ cookbook_file '/opt/service/blackbox-demo-0.1.0.jar' do
   source 'blackbox-demo-0.1.0.jar'
 end
 
-# Note: that you would never really want to provision this way. It should be an out-of-band process.
-# TODO: keys aren't extracting correctly
-# execute 'Extract keys' do
-#   creates '/home/vagrant/.gnupg'
-#   cwd '/home/vagrant'
-#   command 'tar xvfz /tmp/kitchen/cookbooks/blackbox_demo/files/default/demo-keys.tar.gz'
+#Note: that you would never really want to provision this way. It should be an out-of-band process.
+execute 'Extract keys' do
+  creates '/root/.gnupg'
+  cwd '/root'
+  command 'tar xvfz /tmp/kitchen/cookbooks/blackbox_demo/files/default/demo-keys.tar.gz'
+end
+
+# execute 'Correct owner on keys' do
+#   command 'chown -R vagrant /home/vagrant/.gnupg'
 # end
 
-# git '/opt/service/conf' do
-#   repository 'https://github.com/danielsomerfield/blackbox_demo_files.git'
-#   revision 'master'
-#   action :sync
-# end
+execute 'Correct permissions on keys' do
+  command 'chmod -R 700 /root/.gnupg'
+end
 
-# execute 'Decrypt' do
-#   user 'vagrant'
-#   cwd '/opt/service/conf'
-#   command '/usr/blackbox/bin/blackbox_postdeploy'
-# end
+git '/opt/service/conf' do
+  repository 'https://github.com/danielsomerfield/blackbox_demo_files.git'
+  revision 'master'
+  action :sync
+end
 
-#TODO: fix up permissions of extracted files
-#TODO: decrypt the properties
+execute 'Decrypt' do
+  cwd '/opt/service/conf'
+  command '/usr/blackbox/bin/blackbox_postdeploy'
+end
+
 #TODO: add path to properties file to demo app startup path
-
 execute 'java -jar /opt/service/blackbox-demo-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/blackbox-demo.log &' do
 end

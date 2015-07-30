@@ -19,7 +19,7 @@ public class SecretService {
 
     @Autowired
     public SecretService(final SecurityConfiguration securityConfiguration) {
-        getSecretProperties().
+        throw new UnsupportedOperationException("NYI");
     }
 
     private Properties getSecretProperties() {
