@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Optional;
@@ -23,7 +24,10 @@ public class SecretService {
         } catch (IOException e) {
             throw new RuntimeException("Failed to load secret properties.", e);
         }
-        //TODO: delete secret properties
+
+        if (!new File(securityConfiguration.getCredentialsFilePath()).delete()) {
+            throw new RuntimeException("Could not delete credentials file. Shutting down.");
+        }
     }
 
     public Optional<String> getSecret(final String path) {

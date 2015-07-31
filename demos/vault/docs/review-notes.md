@@ -22,6 +22,7 @@ The interactions with HTTP API are pretty involved and have a pretty fair number
 - Inconsistent REST return code semantics (e.g. returning 400s for things that really should be 503s)
 - Relative product immaturity means that API is not yet solidified, so building your own backends would be a tricky endeavor and you will probably end up re-writing
 - Community is limited
+- Not available in standard repos. Extract is deploy.
 
 
 ## Ratings (poor / fair / good)
