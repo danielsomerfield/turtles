@@ -10,7 +10,7 @@
 
 ### Keywhiz
 - URL: https://square.github.io/keywhiz/
-- Demoed by:
+- Demoed by: Daniel (in progress)
 
 ### Category: Secret Storage ###
 ### Git Crypt
@@ -24,7 +24,7 @@ https://github.com/TomPoulton/hiera-eyaml
 - Cam Jackson has some experience with it
 
 ### Blackbox
-- Demoed by: Daniel (in progress)
+- Demoed by: Daniel (complete)
 - https://github.com/StackExchange/blackbox
 
 ### Trousseau

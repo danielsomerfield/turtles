@@ -1,7 +1,9 @@
 # StackExchange Blackbox
 
 ## Summary
-Blackbox is for storing secrets in Git, Mercurial, Subversion or Perforce. It was originally built for Puppet but that is no longer required. The basic model is that a series of scripts mediate the storage, encryption, and decryption of files. Keys are stored encrypted in SCM such that all authorized users can access them.
+Blackbox is for storing secrets in Git, Mercurial, Subversion or Perforce. It was originally built for Puppet but that is no longer required. The basic model is that a series of scripts mediate the storage, encryption, and decryption of files. Keys are stored encrypted in SCM such that all authorized users can access them. Encryption is done via GPG, with all the pluses and minuses that comes with it.
+
+The API is strictly command line and makes little effort to work well past the provisioning process. That means you would generally not use blackbox as a service of any kind, nor would you be likely to use it during application runtime, but for development for manual secret access, and at provisioning time with your orchestration server.
 
 Blackbox makes no effort to solve provisioning and makes very little effort to solve problems that come with automation. That said, it is not terribly hard to layer that on top of blackbox. Blackbox also provides very little workflow support outside of standard developer flow.
 
@@ -18,6 +20,7 @@ Blackbox makes no effort to solve provisioning and makes very little effort to s
 - Automated deploy requires a build of an RPM, or copying source. Not in repos.
 - Built on top of gpg... for what that's worth
 - Chef deploy encourages decryption at the puppet master, rather than the node
+- No API outside of command line
 
 ## Ratings (poor / fair / good)
 - Ease of setup: poor
@@ -32,6 +35,8 @@ Blackbox makes no effort to solve provisioning and makes very little effort to s
 
 ## Features
 - Uses GPG for encryption
+- Supports raw file, git, Mercurial, Subversion, and Perforce
+- Supports workflow for easy decrypt, edit, re-encrypt cycle
 
 ## How does it attempt to solve the bootstrapping problem?
 Sub-keys. Meh.
