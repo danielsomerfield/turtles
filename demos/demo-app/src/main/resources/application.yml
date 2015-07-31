@@ -1,0 +1,2 @@
+demo:
+  appId: ${APP_ID:demo}

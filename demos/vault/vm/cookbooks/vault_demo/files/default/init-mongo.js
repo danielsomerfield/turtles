@@ -1,5 +1,5 @@
 
-var adminUser = {user:"vault-demo", pwd:"vault-demo", roles:[{ role: "readWrite", db:"vault-demo" }]};
-if (db.getUser("vault-demo") == null) {
+var adminUser = {user:"demo", pwd:"demo", roles:[{ role: "readWrite", db:"demo" }]};
+if (db.getUser("demo") == null) {
   db.createUser(adminUser);
 }

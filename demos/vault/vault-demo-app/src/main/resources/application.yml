@@ -1,2 +1,0 @@
-vault:
-  appId: ${VAULT_APP_ID:vault_demo}

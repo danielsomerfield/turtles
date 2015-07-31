@@ -19,4 +19,4 @@ bin/*
 .kitchen/
 .kitchen.local.yml
 
-files/default/vault-demo-*.jar
+files/default/demo-app-*.jar

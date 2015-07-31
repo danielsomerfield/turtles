@@ -15,7 +15,7 @@ cookbook_file '/tmp/init-mongo.js' do
   source 'init-mongo.js'
 end
 
-execute 'mongo vault-demo --port 27017 /tmp/init-mongo.js' do
+execute 'mongo demo --port 27017 /tmp/init-mongo.js' do
 end
 
 # Install Vault
@@ -73,9 +73,9 @@ end
 directory '/opt/service' do
 end
 
-cookbook_file '/opt/service/vault-demo-0.1.0.jar' do
-  source 'vault-demo-0.1.0.jar'
+cookbook_file '/opt/service/demo-app-0.1.0.jar' do
+  source 'demo-app-0.1.0.jar'
 end
 
-execute 'java -jar /opt/service/vault-demo-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/vault-demo.log &' do
+execute 'java -jar /opt/service/demo-app-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/demo.log &' do
 end
