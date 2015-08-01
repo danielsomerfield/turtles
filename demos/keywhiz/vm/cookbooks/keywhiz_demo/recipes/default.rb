@@ -2,6 +2,9 @@ include_recipe "mongodb::default"
 include_recipe "java::default"
 include_recipe 'yum-epel'
 
+execute 'pkill java || true' do
+end
+
 #package deps
 package 'git' do
 end
@@ -44,7 +47,9 @@ cookbook_file '/usr/lib/jvm/jdk1.8.0_31/jre/lib/security/US_export_policy.jar' d
   source 'jce/US_export_policy.jar'
 end
 
-execute '/tmp/apache-maven-3.3.3/bin/mvn -DskipTests package -am -pl server -P h2' do
+mvn_path="/tmp/apache-maven-3.3.3/bin/mvn"
+
+execute "#{mvn_path} -DskipTests package -am -pl server -P h2" do
     cwd '/tmp/keywhiz_src'
 end
 
@@ -52,13 +57,23 @@ execute 'java -jar server/target/keywhiz-server-*-SNAPSHOT-shaded.jar migrate se
     cwd '/tmp/keywhiz_src'
 end
 
-execute 'pkill java || true' do
+#TODO: Bootstrapping in dev mode. This should be replaced with initializing key material and bootstrap admin.
+execute 'java -jar server/target/keywhiz-server-*-SNAPSHOT-shaded.jar db-seed server/src/main/resources/keywhiz-development.yaml' do
+    cwd '/tmp/keywhiz_src'
 end
+
+execute "#{mvn_path} package -am -pl cli" do
+    cwd '/tmp/keywhiz_src'
+end
+
 
 execute 'Start the keywhiz-server' do
   cwd '/tmp/keywhiz_src'
   command 'java -jar server/target/keywhiz-server-*-SNAPSHOT-shaded.jar server server/src/main/resources/keywhiz-development.yaml > /opt/service/keywhiz.log &'
 end
+
+# Set up the keywhiz
+
 
 # Install the service
 directory '/opt/service' do
@@ -68,5 +83,5 @@ cookbook_file '/opt/service/demo-app-0.1.0.jar' do
   source 'demo-app-0.1.0.jar'
 end
 
-execute 'java -jar /opt/service/demo-app-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/demo.log &' do
+execute 'java -Dsecret.service=keywhiz -jar /opt/service/demo-app-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/demo.log &' do
 end

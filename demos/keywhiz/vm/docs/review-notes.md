@@ -26,3 +26,4 @@ Square's keywhiz is another secrets-as-a-service in the spirit of vault. It has 
 ## How does it attempt to solve the bootstrapping problem?
 
 ## Notes
+- There seems to be less activity on the mailing list for keywhiz than vault
