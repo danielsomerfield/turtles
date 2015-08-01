@@ -1,7 +1,7 @@
 package com.thoughtworks.turtles.demo.controllers;
 
 import com.thoughtworks.turtles.demo.domain.Account;
-import com.thoughtworks.turtles.demo.services.vault.AccountService;
+import com.thoughtworks.turtles.demo.services.AccountService;
 import com.thoughtworks.turtles.demo.wireTypes.AccountWireType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

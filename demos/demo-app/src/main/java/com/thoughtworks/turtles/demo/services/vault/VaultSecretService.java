@@ -1,8 +1,7 @@
-package com.thoughtworks.turtles.demo.services;
+package com.thoughtworks.turtles.demo.services.vault;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.turtles.demo.configuration.SecurityConfiguration;
-import com.thoughtworks.turtles.demo.services.vault.AppIdAuthService;
+import com.thoughtworks.turtles.demo.services.SecretService;
 import com.thoughtworks.turtles.demo.util.Http;
 import com.thoughtworks.turtles.demo.wireTypes.Authentication;
 import com.thoughtworks.turtles.demo.wireTypes.SecretWireType;
@@ -13,7 +12,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,19 +23,18 @@ import static com.thoughtworks.turtles.demo.util.FunctionalUtils.either;
 import static java.lang.String.format;
 import static java.lang.System.currentTimeMillis;
 
-@Service
 @Slf4j
 public class VaultSecretService implements SecretService {
 
     private final Map<String, Secret>              secrets    = new HashMap<>();
     private final AtomicReference<Optional<Token>> maybeToken = new AtomicReference<>(Optional.empty());
-    private final AppIdAuthService      appIdAuthService;
-    private final SecurityConfiguration securityConfiguration;
+    private final AppIdAuthService   appIdAuthService;
+    private final VaultConfiguration vaultConfiguration;
 
     @Autowired
-    public VaultSecretService(final AppIdAuthService appIdAuthService, final SecurityConfiguration securityConfiguration) {
+    public VaultSecretService(final AppIdAuthService appIdAuthService, final VaultConfiguration vaultConfiguration) {
         this.appIdAuthService = appIdAuthService;
-        this.securityConfiguration = securityConfiguration;
+        this.vaultConfiguration = vaultConfiguration;
     }
 
     @Override
@@ -72,7 +69,7 @@ public class VaultSecretService implements SecretService {
     }
 
     private Optional<Secret> getSecretWithToken(final String token, final String path) {
-        final HttpGet get = new HttpGet(format("%s/v1/secret/%s", securityConfiguration.getVaultEndpoint(), path));
+        final HttpGet get = new HttpGet(format("%s/v1/secret/%s", vaultConfiguration.getVaultEndpoint(), path));
         get.setHeader("X-Vault-Token", token);
         return Http.doRequest(get).flatMap(this::parseSecret).map(w ->
                 new Secret(

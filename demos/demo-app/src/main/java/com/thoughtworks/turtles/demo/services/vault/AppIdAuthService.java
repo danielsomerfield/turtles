@@ -1,7 +1,6 @@
 package com.thoughtworks.turtles.demo.services.vault;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.turtles.demo.configuration.SecurityConfiguration;
 import com.thoughtworks.turtles.demo.util.Http;
 import com.thoughtworks.turtles.demo.wireTypes.AppIdLoginWireType;
 import com.thoughtworks.turtles.demo.wireTypes.Authentication;
@@ -24,21 +23,21 @@ import static java.lang.String.format;
 @Service
 public class AppIdAuthService {
 
-    private final SecurityConfiguration securityConfiguration;
+    private final VaultConfiguration vaultConfiguration;
 
     @Autowired
-    public AppIdAuthService(final SecurityConfiguration securityConfiguration) {
-        this.securityConfiguration = securityConfiguration;
-        log.info(format("Starting with app id %s", securityConfiguration.getAppId()));
+    public AppIdAuthService(final VaultConfiguration vaultConfiguration) {
+        this.vaultConfiguration = vaultConfiguration;
+        log.info(format("Starting with app id %s", vaultConfiguration.getAppId()));
         //Normally you would NOT want to put this in the logs, but send it to a secure registry somewhere where a
         //security operator could associate the ids
-        log.info(format("Starting with user id %s", securityConfiguration.getUserId()));
+        log.info(format("Starting with user id %s", vaultConfiguration.getUserId()));
     }
 
     @SneakyThrows
     public Optional<Authentication> authenticate() {
-        final HttpPost request = new HttpPost(format("%s/v1/auth/app-id/login", securityConfiguration.getVaultEndpoint()));
-        request.setEntity(new StringEntity(new ObjectMapper().writeValueAsString(new AppIdLoginWireType(securityConfiguration.getAppId(), securityConfiguration.getUserId()))));
+        final HttpPost request = new HttpPost(format("%s/v1/auth/app-id/login", vaultConfiguration.getVaultEndpoint()));
+        request.setEntity(new StringEntity(new ObjectMapper().writeValueAsString(new AppIdLoginWireType(vaultConfiguration.getAppId(), vaultConfiguration.getUserId()))));
         request.setHeader("Content-type", "application/json");
         return Http.doRequest(request)
                 .flatMap(this::toAuth);

@@ -79,5 +79,5 @@ cookbook_file '/opt/service/demo-app-0.1.0.jar' do
   source 'demo-app-0.1.0.jar'
 end
 
-execute 'java -jar /opt/service/demo-app-0.1.0.jar > /opt/service/demo.log &' do
+execute 'java -jar -Dsecret.service=vault /opt/service/demo-app-0.1.0.jar > /opt/service/demo.log &' do
 end

@@ -1,2 +1,6 @@
 demo:
   appId: ${APP_ID:demo}
+
+
+blackbox:
+  credentialsFilePath: /opt/service/conf/credentials.json

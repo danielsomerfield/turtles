@@ -1,4 +1,4 @@
-package com.thoughtworks.turtles.demo.services.vault;
+package com.thoughtworks.turtles.demo.services;
 
 import com.thoughtworks.turtles.demo.domain.Account;
 import com.thoughtworks.turtles.demo.domain.User;
