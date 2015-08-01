@@ -1,9 +1,11 @@
-# include_recipe 'build-essential::default'
 include_recipe "mongodb::default"
 include_recipe "java::default"
 include_recipe 'yum-epel'
 
 #package deps
+package 'git' do
+end
+
 package 'unzip' do
 end
 
@@ -18,58 +20,47 @@ end
 execute 'mongo demo --port 27017 /tmp/init-mongo.js' do
 end
 
-# Install Vault
-remote_file '/tmp/vault_0.1.2_linux_amd64.zip' do
-  source 'https://dl.bintray.com/mitchellh/vault/vault_0.1.2_linux_amd64.zip'
-  action :create
+# Install keywhiz
+git 'clone keywhiz' do
+  repository 'https://github.com/square/keywhiz.git'
+  revision 'master'
+  destination '/tmp/keywhiz_src'
 end
 
-execute 'unzip -o -d /usr/bin /tmp/vault_0.1.2_linux_amd64.zip' do
+remote_file '/tmp/apache-maven-3.3.3-bin.tar.gz' do
+  source 'http://apache.go-parts.com/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz'
 end
 
-file '/usr/bin/vault' do
-  mode '555'
-  owner 'root'
-  group 'root'
+execute 'tar xvfz /tmp/apache-maven-3.3.3-bin.tar.gz' do
+  cwd '/tmp'
+  creates '/tmp/apache-maven-3.3.3/'
 end
 
-cookbook_file '/etc/vault.conf' do
-  source 'vault.conf'
+cookbook_file '/usr/lib/jvm/jdk1.8.0_31/jre/lib/security/local_policy.jar' do
+  source 'jce/local_policy.jar'
 end
 
-execute 'pkill -KILL vault' do
-  ignore_failure true
+cookbook_file '/usr/lib/jvm/jdk1.8.0_31/jre/lib/security/US_export_policy.jar' do
+  source 'jce/US_export_policy.jar'
 end
 
-execute 'sleep 5; vault server -config=/etc/vault.conf 2>&1 > /tmp/vault-stdout.log &' do
+execute '/tmp/apache-maven-3.3.3/bin/mvn -DskipTests package -am -pl server -P h2' do
+    cwd '/tmp/keywhiz_src'
 end
 
-execute 'sleep 5; curl -f -XPUT --data "{\"secret_shares\":1, \"secret_threshold\":1}" http://localhost:8200/v1/sys/init > /tmp/vault-init.json' do
-  not_if 'ls /tmp/vault-init.json'
+execute 'java -jar server/target/keywhiz-server-*-SNAPSHOT-shaded.jar migrate server/src/main/resources/keywhiz-development.yaml' do
+    cwd '/tmp/keywhiz_src'
 end
 
-execute 'pkill -KILL vault' do
-  ignore_failure true
-end
-
-execute 'sleep 5; vault server -config=/etc/vault.conf 2>&1 > /tmp/vault-stdout.log &' do
-end
-
-execute 'cat /tmp/vault-init.json | jq ".keys[0]" | xargs vault unseal --address http://localhost:8200' do
-end
-
-cookbook_file '/home/vagrant/init-vault.sh' do
-  source 'init-vault.sh'
-  mode 700
-end
-
-execute '/home/vagrant/init-vault.sh' do
-end
-
-# Install the service
 execute 'pkill java || true' do
 end
 
+execute 'Start the keywhiz-server' do
+  cwd '/tmp/keywhiz_src'
+  command 'java -jar server/target/keywhiz-server-*-SNAPSHOT-shaded.jar server server/src/main/resources/keywhiz-development.yaml > /opt/service/keywhiz.log &'
+end
+
+# Install the service
 directory '/opt/service' do
 end
 

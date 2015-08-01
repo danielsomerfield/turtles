@@ -24,7 +24,7 @@ public class BlackboxConfiguration {
 
         @Override
         public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
-            return context.getEnvironment().getProperty("secret.service").equals("blackbox");
+            return "blackbox".equals(context.getEnvironment().getProperty("secret.service"));
         }
     }
 

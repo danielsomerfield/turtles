@@ -32,7 +32,7 @@ public class VaultConfiguration {
 
         @Override
         public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
-            return context.getEnvironment().getProperty("secret.service").equals("vault");
+            return "vault".equals(context.getEnvironment().getProperty("secret.service"));
         }
     }
 
