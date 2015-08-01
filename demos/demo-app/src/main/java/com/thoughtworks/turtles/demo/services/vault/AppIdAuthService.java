@@ -12,7 +12,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -20,7 +19,6 @@ import java.util.Optional;
 import static java.lang.String.format;
 
 @Slf4j
-@Service
 public class AppIdAuthService {
 
     private final VaultConfiguration vaultConfiguration;

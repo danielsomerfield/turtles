@@ -39,7 +39,7 @@ cookbook_file '/tmp/init-mongo.js' do
   source 'init-mongo.js'
 end
 
-execute 'mongo blackbox-demo --port 27017 /tmp/init-mongo.js' do
+execute 'mongo demo --port 27017 /tmp/init-mongo.js' do
 end
 
 #TODO: lock down mongo
@@ -51,8 +51,8 @@ end
 directory '/opt/service' do
 end
 
-cookbook_file '/opt/service/blackbox-demo-0.1.0.jar' do
-  source 'blackbox-demo-0.1.0.jar'
+cookbook_file '/opt/service/demo-app-0.1.0.jar' do
+  source 'demo-app-0.1.0.jar'
 end
 
 #Note: that you would never really want to provision this way. It should be an out-of-band process.
@@ -77,5 +77,5 @@ execute 'Decrypt' do
   command '/usr/blackbox/bin/blackbox_postdeploy'
 end
 
-execute 'java -jar /opt/service/blackbox-demo-0.1.0.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 > /opt/service/blackbox-demo.log &' do
+execute 'java -Dsecret.service=blackbox -jar /opt/service/demo-app-0.1.0.jar > /opt/service/demo.log &' do
 end

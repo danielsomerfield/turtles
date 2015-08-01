@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.thoughtworks.turtles.demo.services.SecretService;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,13 +23,20 @@ import java.util.Optional;
 public class BlackboxSecretService implements SecretService {
     private final Secrets secrets;
 
-    @Autowired
-    public BlackboxSecretService(final BlackboxConfiguration securityConfiguration) {
-        try (FileInputStream in = new FileInputStream(securityConfiguration.getCredentialsFilePath())) {
+    public BlackboxSecretService(final BlackboxConfiguration blackboxConfiguration) {
+        try (FileInputStream in = new FileInputStream(blackboxConfiguration.getCredentialsFilePath())) {
             this.secrets = new ObjectMapper().readValue(
                     in, Secrets.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        if (!new File(blackboxConfiguration.getCredentialsFilePath()).delete()) {
+            throw new RuntimeException("Failed to delete credentials file.");
+        }
+
+        if (!new File(blackboxConfiguration.getCredentialsFilePath() + ".gpg").delete()) {
+            throw new RuntimeException("Failed to delete encrypted credentials file.");
         }
     }
 

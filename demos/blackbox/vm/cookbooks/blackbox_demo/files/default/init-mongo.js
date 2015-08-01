@@ -1,5 +1,5 @@
 
-var adminUser = {user:"blackbox-demo", pwd:"blackbox-demo", roles:[{ role: "readWrite", db:"blackbox-demo" }]};
-if (db.getUser("blackbox-demo") == null) {
+var adminUser = {user:"demo", pwd:"demo", roles:[{ role: "readWrite", db:"demo" }]};
+if (db.getUser("demo") == null) {
   db.createUser(adminUser);
 }

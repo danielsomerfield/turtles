@@ -6,7 +6,6 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.thoughtworks.turtles.demo.services.SecretService;
-import com.thoughtworks.turtles.demo.services.vault.VaultSecretService;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.springframework.context.annotation.Bean;

@@ -37,6 +37,11 @@ public class VaultConfiguration {
     }
 
     @Bean
+    public AppIdAuthService appIdAuthService() {
+        return new AppIdAuthService(this);
+    }
+
+    @Bean
     public SecretService secretService(AppIdAuthService appIdAuthService) {
         return new VaultSecretService(appIdAuthService, this);
     }

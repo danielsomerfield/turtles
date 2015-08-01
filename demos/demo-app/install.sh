@@ -17,8 +17,6 @@ fi
 jar_name="demo-app-0.1.0.jar"
 jar_source_path=build/libs/$jar_name
 
-echo `pwd`
-
 if [ ! -f $jar_source_path ]; then
     echo "No directory at $jar_source_path";
     exit 1;
