@@ -85,3 +85,14 @@ end
 
 execute 'java -Dsecret.service=blackbox -jar /opt/service/demo-app-0.1.0.jar > /opt/service/demo.log &' do
 end
+
+execute 'curl -f "http://localhost:8080/health"' do
+  retries 10
+  retry_delay 2
+end
+
+directory 'delete the conf dir' do
+  path '/opt/service/conf'
+  recursive true
+  action :delete
+end
