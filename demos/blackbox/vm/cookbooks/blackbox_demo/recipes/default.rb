@@ -5,7 +5,6 @@ include_recipe 'yum-epel'
 
 #package deps
 package 'rng-tools' do
-
 end
 
 package 'git' do

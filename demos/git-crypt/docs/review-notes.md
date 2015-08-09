@@ -10,7 +10,8 @@ Very similar product to blackbox.
 
 ## Weaknesses
 - Basically no integrations other than git.
-- Very little provisining support
+- Very little provisioning support
+- Tight coupling with git makes it so that you have to operate in a git world. For example, you can't export the repo or the unlock simply won't work.
 
 ## Ratings (poor / fair / good)
 - Ease of setup: fair
@@ -30,4 +31,4 @@ Barely does.
 
 ## Notes
 - No good package for unix
-- Hard to build
+- Don't forget to add a user or you won't be able to decrypt

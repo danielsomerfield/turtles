@@ -8,7 +8,7 @@ The API is strictly command line and makes little effort to work well past the p
 Blackbox makes no effort to solve provisioning and makes very little effort to solve problems that come with automation. That said, it is not terribly hard to layer that on top of blackbox. Blackbox also provides very little workflow support outside of standard developer flow.
 
 ## Strengths
-- Uses key pairs for encryption / decryption
+- Can use key pairs for encryption / decryption
 - Strong puppet support
 - Flexible in that it isn't opinionated about automation solutions.
 - Good support for multiple repo types.
