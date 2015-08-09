@@ -1,4 +1,4 @@
-package com.thoughtworks.turtles.demo.services.blackbox;
+package com.thoughtworks.turtles.demo.services;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,11 +8,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.thoughtworks.turtles.demo.services.SecretService;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,24 +18,24 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-public class BlackboxSecretService implements SecretService {
-    private final Secrets secrets;
+public class PropertiesFileSecretService implements SecretService {
+    private final Secrets       secrets;
+    private final SecretCleaner secretCleaner;
 
-    public BlackboxSecretService(final BlackboxConfiguration blackboxConfiguration) {
-        try (FileInputStream in = new FileInputStream(blackboxConfiguration.getCredentialsFilePath())) {
+    public PropertiesFileSecretService(
+            final PropertiesFileSecretServiceConfiguration propertiesFileSecretServiceConfiguration,
+            final SecretCleaner secretCleaner
+
+    ) {
+        this.secretCleaner = secretCleaner;
+        try (FileInputStream in = new FileInputStream(propertiesFileSecretServiceConfiguration.getCredentialsFilePath())) {
             this.secrets = new ObjectMapper().readValue(
                     in, Secrets.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        if (!new File(blackboxConfiguration.getCredentialsFilePath()).delete()) {
-            throw new RuntimeException("Failed to delete credentials file.");
-        }
-
-        if (!new File(blackboxConfiguration.getCredentialsFilePath() + ".gpg").delete()) {
-            throw new RuntimeException("Failed to delete encrypted credentials file.");
-        }
+        this.secretCleaner.clean();
     }
 
     @Override

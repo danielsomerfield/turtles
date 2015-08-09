@@ -4,6 +4,10 @@ include_recipe "java::default"
 include_recipe 'yum-epel'
 
 #package deps
+package 'rng-tools' do
+
+end
+
 package 'git' do
 end
 
@@ -69,8 +73,10 @@ end
 git '/opt/service/conf' do
   repository 'https://github.com/danielsomerfield/blackbox_demo_files.git'
   revision 'master'
-  action :sync
+  action :export
 end
+
+#TODO: delete keys
 
 execute 'Decrypt' do
   cwd '/opt/service/conf'

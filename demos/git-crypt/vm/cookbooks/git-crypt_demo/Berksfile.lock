@@ -1,0 +1,28 @@
+DEPENDENCIES
+  git-crypt_demo
+    path: .
+    metadata: true
+
+GRAPH
+  apt (2.7.0)
+  build-essential (2.2.3)
+  git-crypt_demo (1.0.0)
+    build-essential (>= 0.0.0)
+    java (>= 0.0.0)
+    mongodb (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  java (1.35.0)
+  mongodb (0.16.2)
+    apt (>= 1.8.2)
+    python (>= 0.0.0)
+    runit (>= 1.5.0)
+    yum (>= 3.0)
+  packagecloud (0.0.19)
+  python (1.4.6)
+    build-essential (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+  runit (1.7.2)
+    packagecloud (>= 0.0.0)
+  yum (3.6.3)
+  yum-epel (0.6.2)
+    yum (~> 3.2)

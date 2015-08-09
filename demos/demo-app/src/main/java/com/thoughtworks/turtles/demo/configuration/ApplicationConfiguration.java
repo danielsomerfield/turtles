@@ -42,6 +42,5 @@ public class ApplicationConfiguration {
                     log.warn("No secret fetched. Using default credentials");
                     return MongoCredential.createCredential("demo", MONGO_DB_NAME, new char[0]);
                 });
-//        return MongoCredential.createCredential("demo", MONGO_DB_NAME, "demo".toCharArray());
     }
 }
