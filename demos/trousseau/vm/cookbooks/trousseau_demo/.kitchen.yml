@@ -1,5 +1,6 @@
 ---
 driver:
+  box: ubuntu/vivid64
   name: vagrant
   customize:
     memory: 2048
@@ -13,7 +14,7 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: centos-7.0
+  - name: ubuntu
 
 suites:
   - name: default

@@ -22,6 +22,7 @@ Not ready for prime time. Not a very interesting clustering story. Docs are spar
 - Developer friendliness:
 - Documentation: poor
 - Stability:
+- Auditability: ???
 
 ## Features
 - FUSE file system

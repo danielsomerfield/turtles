@@ -32,6 +32,7 @@ Blackbox makes no effort to solve provisioning and makes very little effort to s
 - Developer friendliness: poor
 - Documentation: fair
 - Stability: good (no reason to believe otherwise)
+- Auditability: poor. Doesn't stop you, but doesn't help you much either.
 
 ## Features
 - Uses GPG for encryption

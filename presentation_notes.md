@@ -6,3 +6,6 @@
 
 # SCM-based Stratgies
 - Put your encrypted files in a separate repo
+
+# Standards for evaluation
+- Started by looking for products that solve the problem all the way into the cloud and the data-center, not just inside the development org. That means a product with strong auditibility in a git repo still might be rated "poor" if you have no capability to monitor what happens after the secret is deployed.

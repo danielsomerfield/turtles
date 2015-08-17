@@ -1,7 +1,6 @@
 # include_recipe 'build-essential::default'
 include_recipe "mongodb::default"
 include_recipe "java::default"
-include_recipe 'yum-epel'
 
 #package deps
 package 'rng-tools' do
@@ -13,11 +12,11 @@ end
 # package 'ruby-devel' do
 # end
 
-package 'gcc' do
-end
-
-package 'gcc-c++' do
-end
+# package 'gcc' do
+# end
+#
+# package 'gcc-g++' do
+# end
 
 cookbook_file '/tmp/init-mongo.js' do
   source 'init-mongo.js'
@@ -29,20 +28,12 @@ end
 #TODO: lock down mongo
 
 # Install trousseau
-package 'openssl-devel' do
+# TODO: install deb
+
+execute 'echo "deb http://dl.bintray.com/oleiade/deb /" | sudo tee /etc/apt/sources.list.d/trousseau.list' do
 end
 
-GIT_CRYPT_SRC_HOME='/home/vagrant/trousseau_src'
-
-git 'clone trousseau' do
-  repository 'https://github.com/AGWA/trousseau.git'
-  revision 'master'
-  destination GIT_CRYPT_SRC_HOME
-end
-
-execute 'make && make install' do
-  cwd GIT_CRYPT_SRC_HOME
-  creates '/usr/local/bin/trousseau'
+execute 'sudo apt-get update && sudo apt-get install trousseau' do
 end
 
 # Install the service
@@ -71,16 +62,16 @@ execute 'Correct permissions on keys' do
   command 'chmod -R 700 /root/.gnupg'
 end
 
-git '/opt/service/conf' do
-  repository 'https://github.com/danielsomerfield/trousseau_demo_files.git'
-  revision 'master'
-  action :checkout
-end
-
-execute 'Unlock files' do
-  cwd '/opt/service/conf'
-  command '/usr/local/bin/trousseau unlock'
-end
+# git '/opt/service/conf' do
+#   repository 'https://github.com/danielsomerfield/trousseau_demo_files.git'
+#   revision 'master'
+#   action :checkout
+# end
+#
+# execute 'Unlock files' do
+#   cwd '/opt/service/conf'
+#   command '/usr/local/bin/trousseau unlock'
+# end
 
 execute 'java -Dsecret.service=trousseau -jar /opt/service/demo-app-0.1.0.jar > /opt/service/demo.log &' do
 end

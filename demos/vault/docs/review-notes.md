@@ -16,12 +16,13 @@ The interactions with HTTP API are pretty involved and have a pretty fair number
 - Secret lease model encourages a strong key rotation strategy
 - Compelling model for ephemeral credentials that can integrate with AWS roles
 - Several very interesting useful, including AWS, mysql, PostgreSQL and Consul
+- Auditing support at the application level
+- Community is responsive, including the devs
 
 ## Weaknesses
 - API docs are incomplete and at times, contradictory
 - Inconsistent REST return code semantics (e.g. returning 400s for things that really should be 503s)
 - Relative product immaturity means that API is not yet solidified, so building your own backends would be a tricky endeavor and you will probably end up re-writing
-- Community is limited
 - Not available in standard repos. Extract is deploy.
 
 
@@ -33,8 +34,9 @@ The interactions with HTTP API are pretty involved and have a pretty fair number
 - Automation / pipeline readiness: fair
 - Product maturity: fair
 - Developer friendliness: fair
-- Documentation: poor
-- Stability: ??? (crashed a couple of times on unseal, but only using memory-based backend. Haven't found reliable repo)
+- Documentation: fair
+- Stability: fair (crashed a couple of times on unseal, but only using memory-based backend. Haven't found reliable repro)
+- Auditability: good
 
 ## Features
 - Cluster / multi-node support: yes

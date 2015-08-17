@@ -33,7 +33,7 @@ public class GitCryptConfiguration implements PropertiesFileSecretServiceConfigu
 
         @Override
         public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
-            return "git-crypt".equals(context.getEnvironment().getProperty("secret.service"));
+            return "trousseau".equals(context.getEnvironment().getProperty("secret.service"));
         }
     }
 

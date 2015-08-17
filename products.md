@@ -14,7 +14,8 @@
 
 ### Category: Secret Storage ###
 ### Git Crypt
-https://github.com/AGWA/git-crypt
+https://github.com/AGWA/trousseau
+- Demoed by: Daniel (complete)
 
 ### Transcrypt
 https://github.com/elasticdog/transcrypt
@@ -34,6 +35,8 @@ https://github.com/oleiade/trousseau
 
 ### Consul
 https://www.consul.io
+
+### Chef Vault
 
 ### Ansible Vault
 https://github.com/CiscoCloud/microservices-infrastructure
