@@ -1,4 +1,4 @@
-package com.thoughtworks.turtles.demo.services.gitcrypt;
+package com.thoughtworks.turtles.demo.services.transcrypt;
 
 import com.thoughtworks.turtles.demo.services.PropertiesFileSecretService;
 import com.thoughtworks.turtles.demo.services.PropertiesFileSecretServiceConfiguration;
@@ -18,8 +18,8 @@ import java.io.File;
 
 @Configuration
 @Slf4j
-@Conditional(GitCryptConfiguration.GitCryptEnabledCondition.class)
-public class GitCryptConfiguration implements PropertiesFileSecretServiceConfiguration {
+@Conditional(TranscryptConfiguration.TranscryptEnabledCondition.class)
+public class TranscryptConfiguration implements PropertiesFileSecretServiceConfiguration {
 
     @Value("${propertiesFileSecretService.credentialsFilePath}")
     private String credentialsFilePath;
@@ -29,11 +29,11 @@ public class GitCryptConfiguration implements PropertiesFileSecretServiceConfigu
         return credentialsFilePath;
     }
 
-    public static class GitCryptEnabledCondition implements Condition {
+    public static class TranscryptEnabledCondition implements Condition {
 
         @Override
         public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
-            return "gitcrypt".equals(context.getEnvironment().getProperty("secret.service"));
+            return "transcrypt".equals(context.getEnvironment().getProperty("secret.service"));
         }
     }
 
