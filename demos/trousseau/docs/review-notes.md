@@ -9,6 +9,7 @@ I wouldn't recommend using it because there are other products with similar mode
 
 ## Weaknesses
 - Doesn't seem to be a "live" project.
+- Installation is troublesome
 
 ## Ratings (poor / fair / good)
 - Ease of setup: poor
