@@ -211,7 +211,9 @@ img {
 }
 
 nav {
-  float: right;
+  margin-left:auto;
+  margin-right: auto;
+  width: 50%;
   margin-top: 23px; // @TODO: Vertically middle align
   font-family: $helveticaNeue;
   font-size: 18px;
@@ -281,6 +283,12 @@ nav {
 footer {
   padding: 20px 0;
   text-align: center;
+}
+
+//Custom
+.left-nav {
+  float: left;
+  margin: 20px;
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
