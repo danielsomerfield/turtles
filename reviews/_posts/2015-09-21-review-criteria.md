@@ -13,7 +13,7 @@ The criteria I used are as follows:
 - Datacenter readiness - will the product function easily in a more traditional corporate datacenter?
 - Automation / pipeline readiness - does the product integrate well with continuous integration and continuous delivery environments or is it likely to be come the manual bottleneck?
 - Product maturity - has the product been around and gone through some iterations so the wrinkles have been ironed out?
-- Developer friendliness - doe the APIs and/or command-line parameters are straightforward and the product has a good story for integrating into existing code?
+- Developer friendliness - does the APIs and/or command-line parameters are straightforward and the product has a good story for integrating into existing code?
 - Documentation - RTFM
 - Stability - does it crash or corrupt data?
 - Auditability - does it provide decent auditing for both change and access or are you forced to build a layer on top?

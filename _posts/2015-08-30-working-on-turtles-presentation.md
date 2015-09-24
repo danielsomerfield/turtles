@@ -9,6 +9,7 @@ Look here for content related to the presentation. Among other things, we will h
 
 - slides from the presentation
 - source code
-- some blogging from the conference.
+- some blogging from the conference
+- [tool reviews](reviews/)
 
 Hope to see you at AppSec USA!

@@ -24,7 +24,7 @@ It's worth noting that I did not evaluate the puppet use case, but just the tool
 - Good support for multiple repo types.
 - Large number of SCM integrations
 
-###Weaknesses
+### Weaknesses
 - Doesn't integrate terribly well with git tools out of the box. (like tig, git history, etc).
 - Only supports Centos/RedHat, OS-X, and Cygwin.
 - Doesn't discourage storage of secrets on the machines--leaves it up to the dev.
@@ -39,7 +39,7 @@ It's worth noting that I did not evaluate the puppet use case, but just the tool
 - Data center readiness: fair
 - Automation / pipeline readiness: poor
 - Product maturity: good
-- Developer friendliness: poor
+- Developer friendliness: fair
 - Documentation: fair
 - Stability: good
 - Auditability: poor. Doesn't stop you, but doesn't help you much either.
