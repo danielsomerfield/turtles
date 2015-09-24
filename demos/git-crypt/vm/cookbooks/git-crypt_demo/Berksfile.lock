@@ -1,12 +1,12 @@
 DEPENDENCIES
-  trousseau_demo
+  git-crypt_demo
     path: .
     metadata: true
 
 GRAPH
   apt (2.7.0)
   build-essential (2.2.3)
-  trousseau_demo (1.0.0)
+  git-crypt_demo (1.0.0)
     build-essential (>= 0.0.0)
     java (>= 0.0.0)
     mongodb (>= 0.0.0)

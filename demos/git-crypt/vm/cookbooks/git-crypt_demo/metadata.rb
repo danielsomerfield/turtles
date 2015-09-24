@@ -1,4 +1,4 @@
-name              "trousseau_demo"
+name              "git-crypt_demo"
 version           "1.0.0"
 
 depends 'build-essential'

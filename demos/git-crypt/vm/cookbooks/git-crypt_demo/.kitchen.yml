@@ -18,5 +18,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[trousseau_demo::default]
+      - recipe[git-crypt_demo::default]
     attributes:
