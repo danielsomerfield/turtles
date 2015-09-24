@@ -8,8 +8,7 @@ This will be the home of [Turtles All the Way Down: Storing Secrets in the Cloud
 Look here for content related to the presentation. Among other things, we will have:
 
 - slides from the presentation
-- source code
-- some blogging from the conference
+- [source code](https://github.com/danielsomerfield/turtles)
 - [tool reviews](reviews/)
 
 Hope to see you at AppSec USA!
