@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: review
 title: Git-Crypt
 category: review
 ---

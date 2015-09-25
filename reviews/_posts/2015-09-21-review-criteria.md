@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: review
 title: Tool Review Criteria
 category: review
 ---

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: review
 title: Blackbox
 category: review
 ---
