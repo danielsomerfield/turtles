@@ -16,7 +16,7 @@ Another command line tools for encrypting data in a git repo using filters. Encr
 ### Strengths
 - Simple workflow
 - Can use key pairs for encryption / decryption
-- Lock / unlock adds filtering to diff, so you can use tig or git diff diff as usual
+- Lock / unlock adds filtering to diff, so you can use tig or git diff work as usual
 
 ### Weaknesses
 - Basically no integrations other than git.
