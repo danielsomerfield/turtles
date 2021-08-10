@@ -44,7 +44,7 @@ GEM
     ffi (1.9.8)
     hashie (2.1.2)
     hitimes (1.2.2)
-    json (1.8.3)
+    json (2.5.1)
     kitchen-vagrant (0.18.0)
       test-kitchen (~> 1.4)
     minitar (0.5.4)
